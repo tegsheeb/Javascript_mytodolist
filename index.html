@@ -1,0 +1,34 @@
+<body>
+    <div id="app"></div>
+    <!-- CSS Styles are 100% optional. but they make it look *much* nicer -->
+    <link rel="stylesheet" href="lib/todomvc-common-base.css">
+    <link rel="stylesheet" href="lib/todomvc-app.css">
+  
+    <script src="lib/elmish.js"></script>
+    <script src="lib/todo-app.js"></script>
+    <script>
+      var model = {
+        todos: [
+          { id: 1, title: "Learn Elm Architecture", done: true },
+          { id: 2, title: "Build Todo List App",    done: false },
+          { id: 3, title: "Win the Internet!",      done: false }
+        ],
+        hash: '#/' // the "route" to display
+      };
+      mount(model, update, view, 'app');
+    </script>
+  
+    <!-- Below this point is all related to the Tests for the App -->
+    <div id="test-app"></div> <!-- Create a test-app div to mount the app -->
+
+
+
+    <!-- <footer class="info">
+      <p>Double-click to edit a todo</p>
+      <p>Created by <a href="http://twitter.com/oscargodson">Oscar Godson</a></p>
+      <p>Refactored by <a href="https://github.com/cburgmer">Christoph Burgmer</a></p>
+      <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+    </footer> -->
+
+  </body>
+
