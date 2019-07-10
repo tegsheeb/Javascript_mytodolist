@@ -106,7 +106,7 @@ test('render "main" view using (elmish) HTML DOM function', function(t){
 });
 
 
-test.only('render_footer view using (elmish) HTML DOM functions', function(t){
+test('render_footer view using (elmish) HTML DOM functions', function(t){
   const model ={
     todos: [
       {id:1, title: "Learn Elm Architecture", done: true},
@@ -148,4 +148,39 @@ test.only('render_footer view using (elmish) HTML DOM functions', function(t){
 });
 
 
+test('render_footer 1 item left (plurarisation test)', function(t){
+  const model = {
+    todos: [
+      {id: 1, title: "Be excellent to each other!", done: false } 
+    ],
+    hash: '#/' // the "route" to display
+  };
+  // render_footer view and append it to the DOM inside the 'test-app' node:
+  document.getElementById(id).appendChild(app.render_footer(model));
 
+  // todo-count should display "1 item left" (still to be done):
+  const left = document.getElementById('count').innerHTML;
+  t.equal(left, "<strong>1</strong> item left", "Todos remaining: " + left);
+
+  elmish.empty(document.getElementById(id)); //clear DOM ready for next test
+  t.end();
+});
+
+
+test('view renders the whole todo app using "partials"', function(t){
+  // render the view and append it to the DOM insde the 'test-app' node:
+  document.getElementById(id).appendChild(app.view(app.model)); // initial_model
+
+  t.equal(document.querySelectorAll('h1')[0].textContent, "todos", "<h1>todos");
+  // placeholder:
+  const placeholder = document.getElementById('new-todo')
+    .getAttribute("placeholder");
+  t.equal(placeholder, "What needs to be done?", "placeholder set on <input>");
+
+  // todo-count should display "0 items left" (based on ititial_model):
+  const left = document.getElementById('count').innerHTML;
+  t.equal(left, "<strong>0</strong> item left", "Todos remaining: " + left);
+
+  elmish.empty(document.getElementById(id)); // clear DOM ready for next test
+  t.end();
+});
